@@ -1,0 +1,66 @@
+{% extends 'flatpages/default.html' %} 
+ 
+
+{% block title %}
+Post
+{% endblock title %}
+
+
+{% block content %}
+<section class="blog-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="blog-post single-post">
+						<div class="post-date">{{ post.time_in|date:'M d, Y' }}</div>
+						<h3>{{ post.name }}</h3>
+						<div class="post-metas">
+							<div class="post-meta">By {{ post.author }}</div>
+							<div class="post-meta">in <a href="#">{% for category in post.category.all %}
+                    {{ category }} {% if not forloop.last %}, {% endif %}
+                {% endfor %}</a></div>
+							<div class="post-meta">3 Responses</div>
+						</div>
+						<p>{{ post.text }}</p>
+						<a href="{{ post.id }}/update" class="site-btn">Update post</a>
+						<a href="{{ post.id }}/delete" class="site-btn">Delete post</a>
+						<div class="comments">
+							<h5>Responses (2)</h5>
+							<ul class="comments-list">
+								<li>
+									<div class="comment-text">
+										<h6>Jane Smith <a href="#" class="reply">Reply</a></h6>
+										<div class="comment-date">April 1,2019</div>
+										<p>Aenean non felis dapibus, placerat libero auctor, ornare ante. Morbi quis ex eleifend, sodales nulla vitae, scelerisque ante. Nunc id vulputate dui. Suspendisse consectetur rutrum metus nec scelerisque. </p>
+									</div>
+								</li>
+								<li>
+									<div class="comment-text">
+										<h6>Michael James  <a href="#" class="reply">Reply</a></h6>
+										<div class="comment-date">April 1,2019</div>
+										<p>Non felis dapibus, placerat libero auctor, ornare ante. Morbi quis ex eleifend, sodales nulla vitae, scelerisque ante. Nunc id vulputate dui. Suspendisse consectetur rutrum metus.</p>
+									</div>
+								</li>
+							</ul>
+							<h5>Leave a responses</h5>
+							<form class="comment-form">
+								<div class="row">
+									<div class="col-md-6">
+										<input type="text" placeholder="Your name">
+									</div>
+									<div class="col-md-6">
+										<input type="text" placeholder="Your e-mail">
+									</div>
+									<div class="col-md-12">
+										<textarea placeholder="Your message"></textarea>
+										<button class="site-btn">post Comment</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock content %}

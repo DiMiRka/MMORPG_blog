@@ -1,0 +1,56 @@
+{% extends 'flatpages/default.html' %} 
+ 
+
+{% block title %}
+Posts
+{% endblock title %}
+ 
+
+{% block content %}
+<!--<h1>All posts</h1>-->
+<div> <!--style="display: inline-block">-->
+    {% for post in posts %}
+    <div class="blog-post featured-post">
+        <div class="post-date">{{ post.time_in|date:'M d, Y' }}</div>
+        <h3>{{ post.name }}</h3>
+        <div class="post-metas">
+            <div class="post-meta">By {{ post.author }}</div>
+            <div class="post-meta">in <a href="#">
+                {% for category in post.category.all %}
+                        {{ category }} {% if not forloop.last %}, {% endif %}
+                    {% endfor %}</a></div>
+            <div class="post-meta">3 Responses</div>
+        </div>
+        <p>{{ post.text|truncatechars:60 }}</p>
+        <a href="{{ post.id }}" class="site-btn">Read More</a>
+    </div>
+{% endfor %}
+</div>
+<div> <!--style="display: inline-block"-->
+    <a href="/posts/create" class="site-btn">Publish post</a>
+    <div class="sb-widget">
+        <h3 style="color:white">Поиск</h3>
+        <form class="sb-search", method="get">
+            {{ filterset.form.as_p }}
+            <input type="submit" placeholder="Search">
+        </form>
+    </div>
+    <div class="col-lg-4 sidebar" style="max-width:100%">
+        <div class="sb-widget">
+            <h2 class="sb-title">Categories</h2>
+            <ul class="sb-cata-list">
+                <li><a href="">Games<span>20</span></a></li>
+                <li><a href="">Gaming Tips & Tricks<span>23</span></a></li>
+                <li><a href="">Online Games<span>25</span></a></li>
+                <li><a href="">Team Games<span>17</span></a></li>
+                <li><a href="">Community<span>15</span></a></li>
+                <li><a href="">Uncategorized<span>22</span></a></li>
+            </ul>
+        </div>
+        <div class="sb-widget">
+            <a href="#" class="add">
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
