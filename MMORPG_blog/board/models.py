@@ -39,7 +39,7 @@ class PostCategory(models.Model):
 
 
 class PostsResponses(models.Model):
-    author = models.OneToOneField(verbose_name='Автор', to=User, on_delete=models.CASCADE)
+    author = models.ForeignKey(verbose_name='Автор', to=User, on_delete=models.CASCADE)
     post = models.ForeignKey(verbose_name='Объявление', to=Post, on_delete=models.CASCADE)
     text = models.CharField(verbose_name='Текст', max_length=140)
     time_in = models.DateTimeField(auto_now_add=True)

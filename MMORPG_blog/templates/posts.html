@@ -1,5 +1,5 @@
 {% extends 'flatpages/default.html' %} 
- 
+{% load custom_filters %}
 
 {% block title %}
 Posts
@@ -39,12 +39,9 @@ Posts
         <div class="sb-widget">
             <h2 class="sb-title">Categories</h2>
             <ul class="sb-cata-list">
-                <li><a href="">Games<span>20</span></a></li>
-                <li><a href="">Gaming Tips & Tricks<span>23</span></a></li>
-                <li><a href="">Online Games<span>25</span></a></li>
-                <li><a href="">Team Games<span>17</span></a></li>
-                <li><a href="">Community<span>15</span></a></li>
-                <li><a href="">Uncategorized<span>22</span></a></li>
+                {% for category in categories %}
+                <li><a href="/posts/?author=&name=&category={{ category.name }}&time_in=">{{ category.name }}<span>{{ category.name|len_category }}</span></a></li>
+                {% endfor %}
             </ul>
         </div>
         <div class="sb-widget">

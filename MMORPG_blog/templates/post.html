@@ -25,35 +25,31 @@ Post
 						<a href="{{ post.id }}/update" class="site-btn">Update post</a>
 						<a href="{{ post.id }}/delete" class="site-btn">Delete post</a>
 						<div class="comments">
-							<h5>Responses (2)</h5>
+							{% if responses %}
+							<h5>Responses ({{ responses|length }})</h5>
 							<ul class="comments-list">
+							{% for response in responses %}
 								<li>
 									<div class="comment-text">
-										<h6>Jane Smith <a href="#" class="reply">Reply</a></h6>
-										<div class="comment-date">April 1,2019</div>
-										<p>Aenean non felis dapibus, placerat libero auctor, ornare ante. Morbi quis ex eleifend, sodales nulla vitae, scelerisque ante. Nunc id vulputate dui. Suspendisse consectetur rutrum metus nec scelerisque. </p>
+										<h6>{{ response.author }}</h6>
+										<div class="comment-date">{{ response.time_in|date:'M d, Y' }}</div>
+										<p>{{ response.text }}</p>
 									</div>
 								</li>
-								<li>
-									<div class="comment-text">
-										<h6>Michael James  <a href="#" class="reply">Reply</a></h6>
-										<div class="comment-date">April 1,2019</div>
-										<p>Non felis dapibus, placerat libero auctor, ornare ante. Morbi quis ex eleifend, sodales nulla vitae, scelerisque ante. Nunc id vulputate dui. Suspendisse consectetur rutrum metus.</p>
-									</div>
-								</li>
+								{% endfor %}
 							</ul>
+							{% else %}
+							<h5>Откликов нет</h5>
+							{% endif %}
 							<h5>Leave a responses</h5>
-							<form class="comment-form">
+							<form class="comment-form" method="post">
 								<div class="row">
 									<div class="col-md-6">
-										<input type="text" placeholder="Your name">
-									</div>
-									<div class="col-md-6">
-										<input type="text" placeholder="Your e-mail">
-									</div>
-									<div class="col-md-12">
-										<textarea placeholder="Your message"></textarea>
-										<button class="site-btn">post Comment</button>
+										<!--<form method="post">-->
+    										{% csrf_token %}
+    										{{ form.as_p }}
+    										<input type="submit" value="Save" />
+										<!--</form>-->
 									</div>
 								</div>
 							</form>

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'board',
     'django_filters',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
