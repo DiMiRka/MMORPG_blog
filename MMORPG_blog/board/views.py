@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import viewsets, permissions
 
 from .models import *
@@ -9,7 +10,7 @@ from .filters import PostFilter
 from .serializers import PostsSerializer, CategorySerializer
 
 
-class CreatePostsResponses(CreateView):
+class CreatePostsResponses(LoginRequiredMixin, CreateView):
     model = PostsResponses
     form_class = PostsResponsesForm
     template_name = 'post.html'
@@ -64,19 +65,19 @@ class PostDetail(DetailView):
         return context
 
 
-class CreatePost(CreateView):
+class CreatePost(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post_edit.html'
 
 
-class UpdatePost(UpdateView):
+class UpdatePost(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'post_edit.html'
 
 
-class DeletePost(DeleteView):
+class DeletePost(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('posts')

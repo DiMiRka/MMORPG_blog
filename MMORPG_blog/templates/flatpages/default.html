@@ -25,8 +25,18 @@
 	<!-- Header section -->
 	<header class="header-section">
 		<ul class="main-menu">
-			<li><a href="/">Home</a></li>
 			<li><a href="/posts">Posts</a></li>
+			{% if request.user.is_authenticated %}
+			<li><a href="/account">Account</a> </li>
+			<li>
+				<form method="post">
+					{% csrf_token %}
+					<a href="http://127.0.0.1:8000/account/logout/">Logout</a>
+				</form>
+			</li>
+			{% else %}
+			<li><a href="/account/login">Login</a> </li>
+			{% endif %}
 		</ul>
 	</header>
 	<!-- Header section end -->
@@ -34,11 +44,11 @@
 	<!-- Blog section -->
 	<section class="blog-section spad">
 		<div class="container">
-			<div class="row"> <!--style="display: flex">-->
+<!--style="display: flex" style="display: block; align-items: center">-->
 				{% block content %}
 				{{ flatpage.content }}
 				{% endblock content %}
-			</div>
+
 		</div>
 	</section>
 	<!-- Blog section end -->

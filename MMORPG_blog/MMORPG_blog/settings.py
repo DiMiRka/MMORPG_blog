@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-!o_m-omyuygt@u%@-8vzvwv29zu_o9$sd(!5y%*5+3&47dzykn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'board',
+    'account.apps.AccountConfig',
     'django_filters',
     'rest_framework',
 ]
@@ -134,3 +135,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+ADMINS = [('dimir', 'fallen_94@bk.ru'),]
+
+LOGIN_URL = 'http://127.0.0.1:8000/account/login/'
+LOGIN_REDIRECT_URL = '/posts'
+LOGOUT_REDIRECT_URL = '/posts'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'dimirkaNewsPaper@yandex.ru'
+
+EMAIL_HOST_PASSWORD = 'jgsmbrthpmazexss'
+EMAIL_USE_SSL = True

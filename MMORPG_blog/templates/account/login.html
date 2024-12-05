@@ -1,0 +1,38 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+
+{% block content %}
+<section class="characters-section character-one">
+		<div style="display: block; align-items: center">
+			<div class="row">
+				<div class="col-lg-7">
+					<div class="character-info">
+                        <h2>Войти в систему</h2>
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <table>
+                                <tr>
+                                    <td style="color: green">{{ form.username.label_tag }}</td>
+                                    <td>{{ form.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: green">{{ form.password.label_tag }}</td>
+                                    <td>{{ form.password }}</td>
+                                </tr>
+                            </table>
+                            {% csrf_token %}
+                            <input type="submit" value="Войти">
+                        </form>
+                        <form method="get" action="{% url 'register' %}">
+                            <button>Регистрация</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+{% endblock %}
