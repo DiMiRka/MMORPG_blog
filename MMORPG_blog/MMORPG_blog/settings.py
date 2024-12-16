@@ -126,6 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+SITE_URL = 'http://127.0.0.1:8000/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -149,3 +150,8 @@ EMAIL_HOST_USER = 'dimirkaNewsPaper@yandex.ru'
 
 EMAIL_HOST_PASSWORD = 'jgsmbrthpmazexss'
 EMAIL_USE_SSL = True
+
+EMAIL_SERVER = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = 'dimirkaNewsPaper@yandex.ru'
+EMAIL_ADMIN = EMAIL_HOST_USER
+SERVER_EMAIL = DEFAULT_FROM_EMAIL

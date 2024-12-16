@@ -7,7 +7,7 @@ Posts
  
 
 {% block content %}
-<div class="row">
+<div class="row" style="margin-top: 30px">
 {% if posts %}
     <div style="display: inline-block; width: 70%"> <!--style="display: inline-block">-->
         {% for post in posts %}
@@ -21,7 +21,7 @@ Posts
                             {{ category }} {% if not forloop.last %}, {% endif %}
                         {% endfor %}</a>
                     </div>
-                    <div class="post-meta">3 Responses</div>
+                    <div class="post-meta">Responses ({{ post|len_responses }})</div>
                 </div>
                 <p>{{ post.text|truncatechars:60 }}</p>
                 <a href="{{ post.id }}" class="site-btn">Read More</a>
@@ -36,7 +36,7 @@ Posts
     </div>
 {% endif %}
     <div style="display: inline-block; width: 30%"> <!--style="display: inline-block"-->
-        <a href="/posts/create" class="site-btn">Publish post</a>
+        <a href="/posts/create" class="site-btn" style="padding: 21px 35%; margin-bottom: 20px">Publish post</a>
         <div class="sb-widget">
             <h3 style="color:white">Поиск</h3>
             <form class="sb-search", method="get">

@@ -14,17 +14,19 @@ Account
         <h5>Surname: <span style="color: green">{{ request.user.last_name }}</span></h5>
         <h5>Email: <span style="color: green">{{ request.user.email }}</span></h5>
     </div>
+    {% if myresponses %}
     <div class="sb-widget">
         <h3 style="color:white">Поиск</h3>
-        <form class="sb-search", method="get">
+        <form class="sb-search" method="get">
             {{ filterset.form.as_p }}
             <input type="submit" placeholder="Search">
         </form>
-        </div>
+    </div>
+        <h2 style="color: white; margin-bottom: 30px">Responses to your posts</h2>
         {% for response in myresponses%}
         <div class="blog-post featured-post" style="margin-bottom: 20px">
             <div class="post-date" style="margin-bottom: 5px">{{ response.time_in|date:'M d, Y' }}</div>
-            <h3>{{ response.post }}</h3>
+            <h3><a href="http://127.0.0.1:8000/posts/{{response.post.id}}" style="color: green">{{ response.post }}</a></h3>
             <div class="post-metas" style="margin-bottom: 15px">
                 <div class="post-meta">By {{ response.author }}</div>
             </div>
@@ -33,11 +35,14 @@ Account
             <p>accepted: <span style="color: green">{{ response.accepted }}</span></p>
             {% else %}
             <p>accepted: <span style="color: red">{{ response.accepted }}</span>
-                <a href="{% url 'account_posts' %}" class="site-btn" style="display: inline-block; margin-left: 30px; background:green; padding: 8px 15px">Acceptd</a>
-                <a href="{% url 'account_posts' %}" class="site-btn" style="display: inline-block; margin-left: 30px; background:red; padding: 8px 15px">Delete</a>
+                <a href="{{ response.id }}/accept" class="site-btn" style="display: inline-block; margin-left: 30px; background:green; padding: 8px 15px">Acceptd</a>
+                <a href="{{ response.id }}/delete" class="site-btn" style="display: inline-block; margin-left: 30px; background:red; padding: 8px 15px">Delete</a>
             </p>
             {% endif %}
         </div>
         {% endfor %}
+    {% else %}
+    <h2 style="color: white">No responses to your posts</h2>
+    {% endif %}
 </div>
 {% endblock %}

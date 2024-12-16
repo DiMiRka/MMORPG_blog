@@ -1,4 +1,4 @@
-from django_filters import FilterSet, CharFilter, DateFilter, ChoiceFilter, BooleanFilter
+from django_filters import FilterSet, CharFilter, DateFilter, ChoiceFilter, BooleanFilter, ModelChoiceFilter
 from django import forms
 
 from board.models import Category, Post
@@ -19,14 +19,11 @@ class PostFilter(FilterSet):
 
 
 class ResponsesFilter(FilterSet):
-    post = ChoiceFilter(field_name='post__name', choices=[], lookup_expr='icontains', label='Пост')
+    post = ModelChoiceFilter(queryset=Post.objects.all(), label='Пост')
     time_in = DateFilter(field_name='time_in', label='Дата', lookup_expr='gte',
                          widget=forms.DateInput(attrs={'type': 'date'}))
     accepted = BooleanFilter()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.filters['post'].extra['choices'] = [
-            (post, post)
-            for post in Post.objects.values_list('name', flat=True).distinct()
-            ]
+        self.filters['post'].queryset = Post.objects.filter(author=kwargs['request'])

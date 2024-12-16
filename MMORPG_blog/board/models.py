@@ -19,9 +19,12 @@ class Post(models.Model):
                                       related_name='category')
 
     def get_category(self):
-        return ",".join([str(p) for p in self.category.all()])
+        return ",".join([str(c) for c in self.category.all()])
 
     get_category.short_description = 'Категория'
+
+    def get_response(self):
+        return ','.join([str(p) for p in PostsResponses.objects.filter(post=self.pk, accept=True)])
 
     def preview(self):
         return f'{self.text[:80]}...'

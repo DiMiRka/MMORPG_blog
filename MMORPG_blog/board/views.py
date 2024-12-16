@@ -53,13 +53,15 @@ class PostDetail(DetailView):
             replay = form.save(commit=False)
             replay.post = post
             replay.author = request.user
+            if post.author == request.user:
+                replay.accepted = True
             replay.save()
             return redirect('post_detail', pk=post.pk)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post = self.object
-        post_responses = post.postsresponses_set.all()
+        post_responses = post.postsresponses_set.filter(accepted=True)
         context['form'] = PostsResponsesForm
         context['responses'] = post_responses
         return context
@@ -69,6 +71,14 @@ class CreatePost(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post_edit.html'
+
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            replay = form.save(commit=False)
+            replay.author = request.user
+            replay.save()
+            return redirect('post_detail', pk=replay.pk)
 
 
 class UpdatePost(LoginRequiredMixin, UpdateView):

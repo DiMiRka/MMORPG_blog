@@ -1,5 +1,5 @@
 {% extends 'flatpages/default.html' %} 
- 
+{% load custom_filters %}
 
 {% block title %}
 Post
@@ -19,16 +19,19 @@ Post
 							<div class="post-meta">in <a href="#">{% for category in post.category.all %}
                     {{ category }} {% if not forloop.last %}, {% endif %}
                 {% endfor %}</a></div>
-							<div class="post-meta">3 Responses</div>
+							<div class="post-meta">Responses ({{ post|len_responses }})</div>
 						</div>
 						<p>{{ post.text }}</p>
+						{% if request.user == post.author %}
 						<a href="{{ post.id }}/update" class="site-btn">Update post</a>
-						<a href="{{ post.id }}/delete" class="site-btn">Delete post</a>
+						<a href="{{ post.id }}/delete" class="site-btn" style="background:red; color:white">Delete post</a>
+						{% endif %}
 						<div class="comments">
 							{% if responses %}
 							<h5>Responses ({{ responses|length }})</h5>
 							<ul class="comments-list">
 							{% for response in responses %}
+								{% if response.accepted == True %}
 								<li>
 									<div class="comment-text">
 										<h6>{{ response.author }}</h6>
@@ -36,6 +39,7 @@ Post
 										<p>{{ response.text }}</p>
 									</div>
 								</li>
+								{% endif %}
 								{% endfor %}
 							</ul>
 							{% else %}
@@ -43,15 +47,11 @@ Post
 							{% endif %}
 							<h5>Leave a responses</h5>
 							<form class="comment-form" method="post">
-								<div class="row">
-									<div class="col-md-6">
-										<!--<form method="post">-->
+									<div class="col-md-6" style="max-width:100%">
     										{% csrf_token %}
     										{{ form.as_p }}
     										<input type="submit" value="Save" />
-										<!--</form>-->
 									</div>
-								</div>
 							</form>
 						</div>
 					</div>
