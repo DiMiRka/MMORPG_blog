@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from tinymce.models import HTMLField
 
 
 class Category(models.Model):
@@ -14,7 +15,7 @@ class Post(models.Model):
     author = models.ForeignKey(verbose_name='Автор', to=User, on_delete=models.CASCADE)
     time_in = models.DateField(auto_now_add=True)
     name = models.CharField(verbose_name='Заголовок', max_length=50, default='no name')
-    text = models.TextField(verbose_name='Текст')
+    text = HTMLField(verbose_name='Текст')
     category = models.ManyToManyField(Category, verbose_name='Категория', through='PostCategory', blank=False,
                                       related_name='category')
 

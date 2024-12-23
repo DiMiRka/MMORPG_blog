@@ -1,4 +1,5 @@
 from django import forms
+from tinymce.widgets import TinyMCE
 
 from .models import Post, PostsResponses
 
@@ -7,6 +8,9 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['category', 'name', 'text']
+        widgets = {
+            'text': TinyMCE(attrs={'cols': 30, 'rows': 10})
+        }
 
 
 class PostsResponsesForm(forms.ModelForm):

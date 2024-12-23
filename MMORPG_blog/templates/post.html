@@ -9,8 +9,7 @@ Post
 {% block content %}
 <section class="blog-section spad">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-lg-8" style="max-width:100%">
 					<div class="blog-post single-post">
 						<div class="post-date">{{ post.time_in|date:'M d, Y' }}</div>
 						<h3>{{ post.name }}</h3>
@@ -21,7 +20,7 @@ Post
                 {% endfor %}</a></div>
 							<div class="post-meta">Responses ({{ post|len_responses }})</div>
 						</div>
-						<p>{{ post.text }}</p>
+						<p>{{ post.text|safe  }}</p>
 						{% if request.user == post.author %}
 						<a href="{{ post.id }}/update" class="site-btn">Update post</a>
 						<a href="{{ post.id }}/delete" class="site-btn" style="background:red; color:white">Delete post</a>
@@ -47,7 +46,7 @@ Post
 							{% endif %}
 							<h5>Leave a responses</h5>
 							<form class="comment-form" method="post">
-									<div class="col-md-6" style="max-width:100%">
+									<div class="col-md-6" style="max-width:100%; padding: 0">
     										{% csrf_token %}
     										{{ form.as_p }}
     										<input type="submit" value="Save" />
@@ -56,7 +55,6 @@ Post
 						</div>
 					</div>
 				</div>
-			</div>
 		</div>
 	</section>
 {% endblock content %}

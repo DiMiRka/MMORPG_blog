@@ -16,14 +16,15 @@ Posts
                 <h3>{{ post.name }}</h3>
                 <div class="post-metas">
                     <div class="post-meta">By {{ post.author }}</div>
-                    <div class="post-meta">in <a href="#">
-                        {% for category in post.category.all %}
-                            {{ category }} {% if not forloop.last %}, {% endif %}
-                        {% endfor %}</a>
+                    <div class="post-meta">in <a href="/posts/?author=&name=&category={{ category.name }}&time_in=">
+                        {{ post.category.all }}</a>
                     </div>
                     <div class="post-meta">Responses ({{ post|len_responses }})</div>
                 </div>
-                <p>{{ post.text|truncatechars:60 }}</p>
+                <p>{{ post.text|text_preview|safe|truncatechars:100 }}</p>
+                {% if post.text|img_preview %}
+                <p>{{ post.text|img_preview|safe }}</p>
+                {% endif %}
                 <a href="{{ post.id }}" class="site-btn">Read More</a>
             </div>
         {% endfor %}
@@ -39,7 +40,7 @@ Posts
         <a href="/posts/create" class="site-btn" style="padding: 21px 35%; margin-bottom: 20px">Publish post</a>
         <div class="sb-widget">
             <h3 style="color:white">Поиск</h3>
-            <form class="sb-search", method="get">
+            <form class="sb-search" method="get">
                 {{ filterset.form.as_p }}
                 <input type="submit" placeholder="Search">
             </form>

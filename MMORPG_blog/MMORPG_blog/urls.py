@@ -23,5 +23,6 @@ urlpatterns = [
     path('posts/', include('board.urls')),
     path('account/', include('account.urls')),
     path('', include('board.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
