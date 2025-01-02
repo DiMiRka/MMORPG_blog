@@ -14,10 +14,13 @@ Post
 						<div class="post-date">{{ post.time_in|date:'M d, Y' }}</div>
 						<h3>{{ post.name }}</h3>
 						<div class="post-metas">
-							<div class="post-meta">By {{ post.author }}</div>
-							<div class="post-meta">in <a href="#">{% for category in post.category.all %}
-                    {{ category }} {% if not forloop.last %}, {% endif %}
-                {% endfor %}</a></div>
+							<div class="post-meta">By
+								<a href="/posts/?author={{ post.author }}&name=&category=&time_in="> {{ post.author }}</a></div>
+							<div class="post-meta">in
+								{% for category in post.category.all %}
+                        		<a href="/posts/?author=&name=&category={{ category }}&time_in=">
+                            	{{ category }} {% if not forloop.last %}, {% endif %}
+                        		{% endfor %}</a></div>
 							<div class="post-meta">Responses ({{ post|len_responses }})</div>
 						</div>
 						<p>{{ post.text|safe  }}</p>

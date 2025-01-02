@@ -15,9 +15,13 @@ Posts
                 <div class="post-date">{{ post.time_in|date:'M d, Y' }}</div>
                 <h3>{{ post.name }}</h3>
                 <div class="post-metas">
-                    <div class="post-meta">By {{ post.author }}</div>
-                    <div class="post-meta">in <a href="/posts/?author=&name=&category={{ category.name }}&time_in=">
-                        {{ post.category.all }}</a>
+                    <div class="post-meta">By
+                        <a href="/posts/?author={{ post.author }}&name=&category=&time_in="> {{ post.author }}</a></div>
+                    <div class="post-meta">in
+                       {% for category in post.category.all %}
+                        <a href="/posts/?author=&name=&category={{ category }}&time_in=">
+                            {{ category }} {% if not forloop.last %}, {% endif %}
+                        {% endfor %}</a>
                     </div>
                     <div class="post-meta">Responses ({{ post|len_responses }})</div>
                 </div>
@@ -49,6 +53,7 @@ Posts
             <div class="sb-widget">
                 <h2 class="sb-title">Categories</h2>
                 <ul class="sb-cata-list">
+                        <li><a href="/posts/">Все публикации<span>{{ posts|len_posts }}</span></a></li>
                     {% for category in categories %}
                         <li><a href="/posts/?author=&name=&category={{ category.name }}&time_in=">{{ category.name }}<span>{{ category.name|len_category }}</span></a></li>
                     {% endfor %}

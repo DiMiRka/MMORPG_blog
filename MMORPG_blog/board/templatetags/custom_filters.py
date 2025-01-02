@@ -7,6 +7,12 @@ register = template.Library()
 
 
 @register.filter()
+def len_posts(value):
+    posts = Post.objects.all()
+    return len(posts)
+
+
+@register.filter()
 def len_category(value):
     categories = Post.objects.filter(category__name=value)
     return len(categories)

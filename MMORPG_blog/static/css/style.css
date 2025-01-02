@@ -601,7 +601,7 @@ Header section
 }
 
 .sb-cata-list li:nth-child(7) span {
-	background: #20c997;
+	background: #00FFFF;
 }
 
 .sb-cata-list li:nth-child(8) span {
@@ -614,6 +614,10 @@ Header section
 
 .sb-cata-list li:nth-child(10) span {
 	background: #FFC0CB;
+}
+
+.sb-cata-list li:nth-child(11) span {
+	background: #20B2AA;
 }
 
 .sb-cata-list li:last-child a {

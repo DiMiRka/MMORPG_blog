@@ -196,3 +196,9 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 # TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js'
 TINYMCE_COMPRESSOR = False
+
+CELERY_BROKER_URL = 'redis://:Pau85xWekfrMvIvOqgMPuYSRQiio6t06@redis-12287.c277.us-east-1-3.ec2.redns.redis-cloud.com:12287'
+CELERY_RESULT_BACKEND = 'redis://:Pau85xWekfrMvIvOqgMPuYSRQiio6t06@redis-12287.c277.us-east-1-3.ec2.redns.redis-cloud.com:12287'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
