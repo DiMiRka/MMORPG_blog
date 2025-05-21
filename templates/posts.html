@@ -1,0 +1,69 @@
+{% extends 'flatpages/default.html' %} 
+{% load custom_filters %}
+
+{% block title %}
+Posts
+{% endblock title %}
+ 
+
+{% block content %}
+<div class="row" style="margin-top: 30px">
+{% if posts %}
+    <div style="display: inline-block; width: 70%"> <!--style="display: inline-block">-->
+        {% for post in posts %}
+            <div class="blog-post featured-post">
+                <div class="post-date">{{ post.time_in|date:'M d, Y' }}</div>
+                <h3>{{ post.name }}</h3>
+                <div class="post-metas">
+                    <div class="post-meta">By
+                        <a href="/posts/?author={{ post.author }}&name=&category=&time_in="> {{ post.author }}</a></div>
+                    <div class="post-meta">in
+                       {% for category in post.category.all %}
+                        <a href="/posts/?author=&name=&category={{ category }}&time_in=">
+                            {{ category }} {% if not forloop.last %}, {% endif %}
+                        {% endfor %}</a>
+                    </div>
+                    <div class="post-meta">Responses ({{ post|len_responses }})</div>
+                </div>
+                <p>{{ post.text|text_preview|safe|truncatechars:100 }}</p>
+                {% if post.text|img_preview %}
+                <p>{{ post.text|img_preview|safe }}</p>
+                {% endif %}
+                <a href="{{ post.id }}" class="site-btn">Read More</a>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div style="display: inline-block; width: 70%">
+        <div class="post-meta">
+            <h2 style="color: green; margin: 20px; ">Публикаций нет</h2>
+        </div>
+    </div>
+{% endif %}
+    <div style="display: inline-block; width: 30%"> <!--style="display: inline-block"-->
+        <a href="/posts/create" class="site-btn" style="padding: 21px 35%; margin-bottom: 20px">Publish post</a>
+        <div class="sb-widget">
+            <h3 style="color:white">Поиск</h3>
+            <form class="sb-search" method="get">
+                {{ filterset.form.as_p }}
+                <input type="submit" placeholder="Search">
+            </form>
+        </div>
+        <div class="col-lg-4 sidebar" style="max-width:100%">
+            <div class="sb-widget">
+                <h2 class="sb-title">Categories</h2>
+                <ul class="sb-cata-list">
+                        <li><a href="/posts/">Все публикации<span>{{ posts|len_posts }}</span></a></li>
+                    {% for category in categories %}
+                        <li><a href="/posts/?author=&name=&category={{ category.name }}&time_in=">{{ category.name }}<span>{{ category.name|len_category }}</span></a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="sb-widget">
+                <a href="#" class="add">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

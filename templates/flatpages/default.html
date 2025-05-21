@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>MMMORBG Blog</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="TheQuest Gaming Magazine Template">
+	<meta name="keywords" content="gaming, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+	{{ form.media }}
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}"/>
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+
+</head>
+<body>
+
+	<!-- Header section -->
+	<header class="header-section">
+		<ul class="main-menu">
+			<li><a href="/posts">Posts</a></li>
+			{% if request.user.is_authenticated %}
+			<li><a href="/account">Account</a> </li>
+			<li>
+				<form method="post">
+					{% csrf_token %}
+					<a href="http://127.0.0.1:8000/account/logout/">Logout</a>
+				</form>
+			</li>
+			{% else %}
+			<li><a href="/account/login">Login</a> </li>
+			{% endif %}
+		</ul>
+	</header>
+	<!-- Header section end -->
+
+	<!-- Blog section -->
+	<section class="blog-section spad">
+		<div class="container">
+<!--style="display: flex" style="display: block; align-items: center">-->
+				{% block content %}
+				{{ flatpage.content }}
+				{% endblock content %}
+
+		</div>
+	</section>
+	<!-- Blog section end -->
+
+	</body>
+</html>

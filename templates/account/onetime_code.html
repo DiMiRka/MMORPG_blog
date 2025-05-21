@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Onetime code
+{% endblock title %}
+
+
+{% block content %}
+    <h3 style="color:white; margin-top: 30px">Вам на почту был выслан код авторизации</h3> <br>
+
+    <form action="{% url 'onetime_code' %}" method="post" name="code">
+        {% csrf_token %}
+        <label>
+            <input class="text" type="text" name="code" placeholder="Код активации">
+        </label>
+        <p><button type="submit">Подтвердить</button></p>
+    </form>
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<section class="blog-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="blog-post single-post">
+                        <h3>Deleting a post</h3>
+                        <hr>
+                        <form action="" method="post">
+                        {% csrf_token %}
+                        <p>Delete "{{ object.name }}"?</p>
+                        <input type="submit" value="Delete" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+{% endblock content %}
