@@ -6,6 +6,7 @@ from .models import Category
 
 
 class PostFilter(FilterSet):
+    """Фильтрация постов"""
     author = CharFilter(field_name='author__username', lookup_expr='icontains', label='Автор')
     name = CharFilter(field_name='name', lookup_expr='icontains', label='Название')
     category = ChoiceFilter(field_name='category__name', choices=[], lookup_expr='icontains', label='Категория')

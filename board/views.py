@@ -2,12 +2,11 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework import viewsets, permissions
+
 
 from .models import *
 from .forms import PostForm, PostsResponsesForm
 from .filters import PostFilter
-from .serializers import PostsSerializer, CategorySerializer
 
 
 class CreatePostsResponses(LoginRequiredMixin, CreateView):

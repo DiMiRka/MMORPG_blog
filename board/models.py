@@ -5,6 +5,7 @@ from tinymce.models import HTMLField
 
 
 class Category(models.Model):
+    """Модель категории постов"""
     name = models.CharField(max_length=25, unique=True)
 
     def __str__(self):
@@ -12,12 +13,13 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    author = models.ForeignKey(verbose_name='Автор', to=User, on_delete=models.CASCADE)
+    """Модель постов"""
+    author = models.ForeignKey(verbose_name='Автор', to=User, on_delete=models.CASCADE, db_index=True)
     time_in = models.DateField(auto_now_add=True)
     name = models.CharField(verbose_name='Заголовок', max_length=50, default='no name')
     text = HTMLField(verbose_name='Текст')
     category = models.ManyToManyField(Category, verbose_name='Категория', through='PostCategory', blank=False,
-                                      related_name='category')
+                                      related_name='category', db_index=True)
 
     def get_category(self):
         return ",".join([str(c) for c in self.category.all()])
@@ -38,13 +40,15 @@ class Post(models.Model):
 
 
 class PostCategory(models.Model):
+    """Связь между постами и категориями"""
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 
 class PostsResponses(models.Model):
-    author = models.ForeignKey(verbose_name='Автор', to=User, on_delete=models.CASCADE)
-    post = models.ForeignKey(verbose_name='Объявление', to=Post, on_delete=models.CASCADE)
+    """Модель представления постов"""
+    author = models.ForeignKey(verbose_name='Автор', to=User, on_delete=models.CASCADE, db_index=True)
+    post = models.ForeignKey(verbose_name='Объявление', to=Post, on_delete=models.CASCADE, db_index=True)
     text = models.CharField(verbose_name='Текст', max_length=400)
     time_in = models.DateTimeField(auto_now_add=True)
     accepted = models.BooleanField(default=False)
